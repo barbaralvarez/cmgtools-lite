@@ -19,7 +19,6 @@ void ttScaleFactors(TString year="2017", TString loose="eTmuL", TString tight="e
   //opposite-sign
   TString SS   = "_SS";
   TString ttname        = var+"_TT";
-  TString fakesttname   = var+"_Fakes_TT";
   TString bkgname       = var+"_background";
   TString dataname      = var+"_data";
   //same-sign
@@ -28,8 +27,13 @@ void ttScaleFactors(TString year="2017", TString loose="eTmuL", TString tight="e
   TString wjetsname_SS     = var+"_WJets"+SS;
   TString dyname_SS        = var+"_DY"+SS;
   TString wwname_SS        = var+"_WW"+SS;
-  TString fakesttname_SS   = var+"_Fakes_TT"+SS;
+  TString ttwname_SS       = var+"_TTW"+SS;
+  TString ttzname_SS       = var+"_TTZ"+SS;
   TString dataname_SS      = var+"_data"+SS;
+
+  //ttbar fakes
+  TString fakesttname    = var+"_Fakes_TT";
+  TString fakesttname_SS = var+"_Fakes_TT"+SS;
 
   //Files loose selection and tight selection
   TFile *fileLoose = new TFile(loose+"_data/"+year+"/"+loose+"_data/testplots.root");
@@ -72,10 +76,14 @@ void ttScaleFactors(TString year="2017", TString loose="eTmuL", TString tight="e
   Double_t num_dy_SS    = Nevents(dyname_SS, fileTight, nbin);    Double_t err_num_dy_SS = TMath::Sqrt(num_dy_SS);
   Double_t den_ww_SS    = Nevents(wwname_SS, fileLoose, nbin);    Double_t err_den_ww_SS = TMath::Sqrt(den_ww_SS);
   Double_t num_ww_SS    = Nevents(wwname_SS, fileTight, nbin);    Double_t err_num_ww_SS = TMath::Sqrt(num_ww_SS);
+  Double_t den_ttw_SS   = Nevents(ttwname_SS, fileLoose, nbin);    Double_t err_den_ttw_SS = TMath::Sqrt(den_ttw_SS);
+  Double_t num_ttw_SS   = Nevents(ttwname_SS, fileTight, nbin);    Double_t err_num_ttw_SS = TMath::Sqrt(num_ttw_SS);
+  Double_t den_ttz_SS   = Nevents(ttzname_SS, fileLoose, nbin);    Double_t err_den_ttz_SS = TMath::Sqrt(den_ttz_SS);
+  Double_t num_ttz_SS   = Nevents(ttzname_SS, fileTight, nbin);    Double_t err_num_ttz_SS = TMath::Sqrt(num_ttz_SS);
 
   //total prompt SS
-  Double_t den_prompt_SS=den_tt_SS+den_st_SS+den_wjets_SS+den_dy_SS+den_ww_SS;
-  Double_t num_prompt_SS=num_tt_SS+num_st_SS+num_wjets_SS+num_dy_SS+num_ww_SS;
+  Double_t den_prompt_SS=den_tt_SS+den_st_SS+den_wjets_SS+den_dy_SS+den_ww_SS+den_ttw_SS+den_ttz_SS;
+  Double_t num_prompt_SS=num_tt_SS+num_st_SS+num_wjets_SS+num_dy_SS+num_ww_SS+num_ttw_SS+num_ttz_SS;
   
   //*****************************
   //corrections to data data_corr = data(OS)- ((data SS - prompt SS)*SF(tt fakes))
@@ -124,8 +132,8 @@ void ttScaleFactors(TString year="2017", TString loose="eTmuL", TString tight="e
 Double_t Nevents(TString sample, TFile* file, Int_t nbin){
   TH1D *h = (TH1D*)file->Get(sample);
   h->Draw();
-  //Double_t nevents = h->GetBinContent(nbin);
-  Double_t nevents = h->Integral();
+  Double_t nevents = h->GetBinContent(nbin);
+  //Double_t nevents = h->Integral();
   //cout << "Sample: " << sample << ", number of events: " << nevents << endl;
   return nevents;
 }
