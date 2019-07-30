@@ -26,8 +26,8 @@ if 'fanae' in os.environ['HOSTNAME']:
     nCores = 22
     submit = 'sbatch -p  short -c %d --wrap "{command}"'%nCores
     P0     = "/pool/ciencias/userstorage/sscruz/NanoAOD/"
-TREESALL = "--xf THQ_LHE,THW_LHE,TTWW,TTTW,TTWH  --Fs {P}/1_lepJetBTagDeepFlav_v1  --Fs {P}/2_triggerSequence_v2 --Fs {P}/3_recleaner_v2 --FMCs {P}/4_btag_v2 --FMCs /pool/cienciasrw/userstorage/balvarez/NanoAOD/NanoTrees_TTH_300519_v5pre/%s/ttHleptonSF/ --FMCs {P}/0_mcFlags_v0"%(YEAR,)
-#TREESALL = "--xf THQ_LHE,THW_LHE,TTWW,TTTW,TTWH  --Fs {P}/1_lepJetBTagDeepFlav_v1  --Fs {P}/2_triggerSequence_v2 --Fs {P}/3_recleaner_v2 --FMCs {P}/4_btag_v2 --FMCs {P}/4_leptonSFs_v0 --FMCs {P}/0_mcFlags_v0" 
+#TREESALL = "--xf THQ_LHE,THW_LHE,TTWW,TTTW,TTWH  --Fs {P}/1_lepJetBTagDeepFlav_v1  --Fs {P}/2_triggerSequence_v2 --Fs {P}/3_recleaner_v2 --FMCs {P}/4_btag_v2 --FMCs /pool/cienciasrw/userstorage/balvarez/NanoAOD/NanoTrees_TTH_300519_v5pre/%s/ttHleptonSF/ --FMCs {P}/0_mcFlags_v0"%(YEAR,)
+TREESALL = "--xf THQ_LHE,THW_LHE,TTWW,TTTW,TTWH  --Fs {P}/1_lepJetBTagDeepFlav_v1  --Fs {P}/2_triggerSequence_v2 --Fs {P}/3_recleaner_v2 --FMCs {P}/4_btag_v2 --FMCs {P}/4_leptonSFs_v0 --FMCs {P}/0_mcFlags_v0" 
 TREESONLYFULL = "-P "+P0+"/NanoTrees_TTH_300519_v5pre/%s "%(YEAR,)
 TREESONLYSKIM = "-P "+P0+"/NanoTrees_TTH_300519_v5pre_skim2LSS/%s "%(YEAR,)
 TREESONLYMEMZVETO = "-P "+P0+"/NanoTrees_TTH_300519_v5pre/%s "%(YEAR,)
@@ -116,7 +116,7 @@ if __name__ == '__main__':
         x = fulltrees(x) # for mc same-sign
         x = x.replace('ttH-multilepton/2lss_3l_plots.txt','ttH-multilepton/testplots.txt')
         x = x.replace('ttH-multilepton/2lss_tight.txt','ttH-multilepton/eTightmuLoose.txt')
-        x = x.replace('puWeight*btagSF_shape*leptonSF_2lss*triggerSF_2lss','puWeight*btagSF_shape*triggerSF_2lss')
+        x = x.replace('puWeight*btagSF_shape*leptonSF_2lss*triggerSF_2lss','puWeight*btagSF_shape*triggerSF_2lss*leptonSF_2lss') #using only reco to loose SFs with --FMCs {P}/4_leptonSFs_v0
         #if '_data' in torun: x = x.replace('mca-2lss-mc.txt','mca-2lss-mcdata-ttbar.txt')
         if '_data' in torun: x = x.replace('mca-2lss-mc.txt','mca-2lss-mcdata-ttbar-SFs.txt')
         runIt(x,'%s'%torun)
@@ -127,7 +127,30 @@ if __name__ == '__main__':
         x = fulltrees(x) # for mc same-sign
         x = x.replace('ttH-multilepton/2lss_3l_plots.txt','ttH-multilepton/testplots.txt')
         x = x.replace('ttH-multilepton/2lss_tight.txt','ttH-multilepton/eTightmuTight.txt')
-        x = x.replace('puWeight*btagSF_shape*leptonSF_2lss*triggerSF_2lss','puWeight*btagSF_shape*triggerSF_2lss*leptonSF_2lss')
+        x = x.replace('puWeight*btagSF_shape*leptonSF_2lss*triggerSF_2lss','puWeight*btagSF_shape*triggerSF_2lss*leptonSF_2lss') #using all SFs with --FMCs /pool/cienciasrw/userstorage/balvarez/NanoAOD/NanoTrees_TTH_300519_v5pre/%s/ttHleptonSF/
+        if '_data' in torun: x = x.replace('mca-2lss-mc.txt','mca-2lss-mcdata-ttbar-SFs.txt')
+        #if '_data' in torun: x = x.replace('mca-2lss-mc.txt','mca-2lss-mcdata-ttbar.txt')
+        runIt(x,'%s'%torun)
+
+    #electron loose and muon tight
+    if 'muTeL_' in torun:
+        print "Running electron tight and muon loose"
+        x = base('2lss')
+        x = fulltrees(x) # for mc same-sign
+        x = x.replace('ttH-multilepton/2lss_3l_plots.txt','ttH-multilepton/testplots.txt')
+        x = x.replace('ttH-multilepton/2lss_tight.txt','ttH-multilepton/muTighteLoose.txt')
+        x = x.replace('puWeight*btagSF_shape*leptonSF_2lss*triggerSF_2lss','puWeight*btagSF_shape*triggerSF_2lss*leptonSF_2lss') #using only reco to loose SFs with --FMCs {P}/4_leptonSFs_v0
+        #if '_data' in torun: x = x.replace('mca-2lss-mc.txt','mca-2lss-mcdata-ttbar.txt')
+        if '_data' in torun: x = x.replace('mca-2lss-mc.txt','mca-2lss-mcdata-ttbar-SFs.txt')
+        runIt(x,'%s'%torun)
+    #electron and muon tight
+    if 'muTeT_' in torun:
+        print "Running electron tight and muon tight"
+        x = base('2lss')
+        x = fulltrees(x) # for mc same-sign
+        x = x.replace('ttH-multilepton/2lss_3l_plots.txt','ttH-multilepton/testplots.txt')
+        x = x.replace('ttH-multilepton/2lss_tight.txt','ttH-multilepton/muTighteTight.txt')
+        x = x.replace('puWeight*btagSF_shape*leptonSF_2lss*triggerSF_2lss','puWeight*btagSF_shape*triggerSF_2lss*leptonSF_2lss') #using all SFs with --FMCs /pool/cienciasrw/userstorage/balvarez/NanoAOD/NanoTrees_TTH_300519_v5pre/%s/ttHleptonSF/
         if '_data' in torun: x = x.replace('mca-2lss-mc.txt','mca-2lss-mcdata-ttbar-SFs.txt')
         #if '_data' in torun: x = x.replace('mca-2lss-mc.txt','mca-2lss-mcdata-ttbar.txt')
         runIt(x,'%s'%torun)
