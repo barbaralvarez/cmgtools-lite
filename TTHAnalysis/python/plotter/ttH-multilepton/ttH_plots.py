@@ -18,16 +18,14 @@ dowhat = "plots"
 #dowhat = "yields" 
 #dowhat = "ntuple" # syntax: python ttH-multilepton/ttH_plots.py no 2lss_SR_extr outfile_{cname}.root --sP var1,var2,...
 
-P0="/pool/cienciasrw/userstorage/sscruz/NanoAOD/"
-#P0="/eos/cms/store/cmst3/group/tthlep/peruzzi/"
+P0="/eos/cms/store/cmst3/group/tthlep/peruzzi/"
 #if 'cmsco01'   in os.environ['HOSTNAME']: P0="/data1/peruzzi"
 nCores = 8
 if 'fanae' in os.environ['HOSTNAME']: 
     nCores = 22
     submit = 'sbatch -p  short -c %d --wrap "{command}"'%nCores
     P0     = "/pool/ciencias/userstorage/sscruz/NanoAOD/"
-TREESALL = "--xf THQ_LHE,THW_LHE,TTWW,TTTW,TTWH  --Fs {P}/1_lepJetBTagDeepFlav_v1  --Fs {P}/2_triggerSequence_v2 --Fs {P}/3_recleaner_v2 --FMCs {P}/4_btag_v2 --FMCs /pool/cienciasrw/userstorage/balvarez/NanoAOD/NanoTrees_TTH_300519_v5pre/%s/ttHleptonSF/ --FMCs {P}/0_mcFlags_v0"%(YEAR,)
-#TREESALL = "--xf THQ_LHE,THW_LHE,TTWW,TTTW,TTWH  --Fs {P}/1_lepJetBTagDeepFlav_v1  --Fs {P}/2_triggerSequence_v2 --Fs {P}/3_recleaner_v2 --FMCs {P}/4_btag_v2 --FMCs {P}/4_leptonSFs_v0 --FMCs {P}/0_mcFlags_v0" 
+TREESALL = "--xf THQ_LHE,THW_LHE,TTWW,TTTW,TTWH  --Fs {P}/1_lepJetBTagDeepFlav_v1  --Fs {P}/2_triggerSequence_v2 --Fs {P}/3_recleaner_v1 --FMCs {P}/4_btag --FMCs {P}/4_leptonSFs_v0 --FMCs {P}/0_mcFlags_v0" 
 TREESONLYFULL = "-P "+P0+"/NanoTrees_TTH_300519_v5pre/%s "%(YEAR,)
 TREESONLYSKIM = "-P "+P0+"/NanoTrees_TTH_300519_v5pre_skim2LSS/%s "%(YEAR,)
 TREESONLYMEMZVETO = "-P "+P0+"/NanoTrees_TTH_300519_v5pre/%s "%(YEAR,)
@@ -51,7 +49,6 @@ def base(selection):
         if dowhat in ["plots","ntuple"]: GO+=" ttH-multilepton/2lss_3l_plots.txt --xP '^lep(3|4)_.*' --xP '^(3|4)lep_.*' --xP 'kinMVA_3l_.*' "
         if dowhat == "plots": GO=GO.replace(LEGEND, " --legendColumns 3 --legendWidth 0.52 ")
         if dowhat == "plots": GO=GO.replace(RATIO,  " --maxRatioRange 0.6  1.99 --ratioYNDiv 210 ")
-        #if dowhat == "plots": GO=GO.replace(RATIO,  " --maxRatioRange 0.6  1.4 --ratioYNDiv 210 ")
         GO += " --binname 2lss "
     elif selection=='3l':
         GO="%s ttH-multilepton/mca-3l-mc.txt ttH-multilepton/3l_tight.txt "%CORE
@@ -101,36 +98,13 @@ def fulltrees(x):
 def doprescale3l(x,torun):
     return x.replace(TREESONLYSKIM,TREESONLYMEMZPEAK if any([(_y in torun) for _y in ['cr_wz','cr_ttz','cr_fourlep_onZ','_Zpeak']]) else TREESONLYMEMZVETO)
 
-allow_unblinding = True
+allow_unblinding = False
 
 if __name__ == '__main__':
 
     torun = sys.argv[3]
 
     if (not allow_unblinding) and '_data' in torun and (not any([re.match(x.strip()+'$',torun) for x in ['.*_appl.*','cr_.*','3l.*_Zpeak.*']])): raise RuntimeError, 'You are trying to unblind!'
-
-    #electron tight and muon loose
-    if 'eTmuL_' in torun:
-        print "Running electron tight and muon loose"
-        x = base('2lss')
-        x = fulltrees(x) # for mc same-sign
-        x = x.replace('ttH-multilepton/2lss_3l_plots.txt','ttH-multilepton/testplots.txt')
-        x = x.replace('ttH-multilepton/2lss_tight.txt','ttH-multilepton/eTightmuLoose.txt')
-        x = x.replace('puWeight*btagSF_shape*leptonSF_2lss*triggerSF_2lss','puWeight*btagSF_shape*triggerSF_2lss')
-        #if '_data' in torun: x = x.replace('mca-2lss-mc.txt','mca-2lss-mcdata-ttbar.txt')
-        if '_data' in torun: x = x.replace('mca-2lss-mc.txt','mca-2lss-mcdata-ttbar-SFs.txt')
-        runIt(x,'%s'%torun)
-    #electron and muon tight
-    if 'eTmuT_' in torun:
-        print "Running electron tight and muon tight"
-        x = base('2lss')
-        x = fulltrees(x) # for mc same-sign
-        x = x.replace('ttH-multilepton/2lss_3l_plots.txt','ttH-multilepton/testplots.txt')
-        x = x.replace('ttH-multilepton/2lss_tight.txt','ttH-multilepton/eTightmuTight.txt')
-        x = x.replace('puWeight*btagSF_shape*leptonSF_2lss*triggerSF_2lss','puWeight*btagSF_shape*triggerSF_2lss*leptonSF_2lss')
-        if '_data' in torun: x = x.replace('mca-2lss-mc.txt','mca-2lss-mcdata-ttbar-SFs.txt')
-        #if '_data' in torun: x = x.replace('mca-2lss-mc.txt','mca-2lss-mcdata-ttbar.txt')
-        runIt(x,'%s'%torun)
 
     if '2lss_' in torun:
         x = base('2lss')
