@@ -1,0 +1,7 @@
+# run loose and tight selections for electron and muons
+python ttH-multilepton/ttH_plots.py eTmuL_data 2017 eTmuL_data | bash
+python ttH-multilepton/ttH_plots.py eTmuT_data 2017 eTmuT_data | bash
+python ttH-multilepton/ttH_plots.py muTeL_data 2017 muTeL_data | bash
+python ttH-multilepton/ttH_plots.py muTeT_data 2017 muTeT_data | bash
+# check the results 
+python ttScaleFactors.py >& ttScaleFactors.log
