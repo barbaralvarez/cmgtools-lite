@@ -1,7 +1,7 @@
-ele_pt:     if3(abs(LepGood1_pdgId)==11,LepGood1_pt,LepGood2_pt)   : 40,0,200; XTitle="Electron p_{T} (GeV)"
-muon_pt:    if3(abs(LepGood1_pdgId)==13,LepGood1_pt,LepGood2_pt)   : 40,0,200; XTitle="Muon p_{T} (GeV)"
-ele_eta:    if3(abs(LepGood1_pdgId)==11,LepGood1_eta,LepGood2_eta) : 40,-2.5,2.5; XTitle="Electron #eta"
-muon_eta:   if3(abs(LepGood1_pdgId)==13,LepGood1_eta,LepGood2_eta) : 40,-2.5,2.5; XTitle="Muon #eta"
+ele_pt:     if3(abs(LepGood_pdgId[0])==11,LepGood_pt[0], LepGood_pt[1])   : 40,0,150; XTitle="Electron p_{T} (GeV)"
+muon_pt:    if3(abs(LepGood_pdgId[0])==13,LepGood_pt[0], LepGood_pt[1])   : 40,0,150; XTitle="Muon p_{T} (GeV)"
+ele_eta:    if3(abs(LepGood_pdgId[0])==11,LepGood_eta[0],LepGood_eta[1]) : 40,-2.5,2.5; XTitle="Electron #eta"
+muon_eta:   if3(abs(LepGood_pdgId[0])==13,LepGood_eta[0],LepGood_eta[1]) : 40,-2.5,2.5; XTitle="Muon #eta"
 
 nJet25_from0:	    	nJet25					: [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5] ; XTitle='N(jet\, p_{T} > 25 GeV)', XNDiv=5, xBinLabels="2\,3\,4\,5\,6\,#geq 7"
 #nBJetLoose25:	nBJetLoose25				: [-0.5,0.5,1.5,2.5,3.5,4.5] ; XTitle='N(jet\, p_{T} > 25 GeV\, CSVL)', XNDiv=5, xBinLabels="0\,1\,2\,3\,#geq 4", MoreY=1.7
