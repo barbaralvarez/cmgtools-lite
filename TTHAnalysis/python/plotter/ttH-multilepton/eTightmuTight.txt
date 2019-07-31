@@ -1,39 +1,24 @@
 alwaystrue: 1
 
-##single muon trigger
-#trigger: Trigger_1m || Trigger_1e
+##single electron trigger
 trigger: Trigger_1e
 cleanup: minMllAFAS > 12
-##
-###two fakeable objects, needs to be replaced by loose objects
-#dilep: nLepFO>=2
+##two loose leptons
 diloose: nLepGood>=2
-#diloose: nLepGood ==2
-###exclusive: nLepFO_isTight <= 2
-pt2510: LepGood1_conePt>25 && LepGood2_conePt>10
-##
-###two opposite sign
-#opp-sign: LepGood1_charge*LepGood2_charge < 0
-#ss: LepGood1_charge*LepGood2_charge > 0
-##
-###e-mu channel
-emu: abs(LepGood1_pdgId) != abs(LepGood2_pdgId)
-##dilep: abs(LepGood1_pdgId) == abs(LepGood2_pdgId)
-#ee: abs(LepGood1_pdgId)==11 && abs(LepGood2_pdgId)==11
-#mumu: abs(LepGood1_pdgId)==13 && abs(LepGood2_pdgId)==13
-##
-###electron and muon tight
-TT: LepGood1_isLepTight && LepGood2_isLepTight 
-eleID: (abs(LepGood1_pdgId)!=11 || (LepGood1_convVeto && LepGood1_lostHits==0 && LepGood1_tightCharge>=2)) && (abs(LepGood2_pdgId)!=11 || (LepGood2_convVeto && LepGood2_lostHits==0 && LepGood2_tightCharge>=2))
-muTightCharge: (abs(LepGood1_pdgId)!=13 || LepGood1_tightCharge>=1) && (abs(LepGood2_pdgId)!=13 || LepGood2_tightCharge>=1)
-##
-###at least 2 jets and one b-tagged
+##pt cuts
+pt2510: LepGood_conePt[0]>25 && LepGood_conePt[1]>10
+##e-mu channel
+emu: abs(LepGood_pdgId[0]) != abs(LepGood_pdgId[1])
+##electron and muon tight
+TT: LepGood_isLepTight_Recl[0] && LepGood_isLepTight_Recl[1] 
+eleID: (abs(LepGood_pdgId[0])!=11 || (LepGood_convVeto[0] && LepGood_lostHits[0]==0 && LepGood_tightCharge[0]>=2)) && (abs(LepGood_pdgId[1])!=11 || (LepGood_convVeto[1] && LepGood_lostHits[1]==0 && LepGood_tightCharge[1]>=2))
+muTightCharge: (abs(LepGood_pdgId[0])!=13 || LepGood_tightCharge[0]>=1) && (abs(LepGood_pdgId[1])!=13 || LepGood_tightCharge[1]>=1)
+##at least 2 jets and one b-tagged
 2j: nJet25>=2
 1B: nBJetMedium25 >= 1 
 #2b1B: nBJetLoose25 >= 2 || nBJetMedium25 >= 1
-
 ##
-tauveto: nTauTight==0
+#tauveto: nTauTight==0
 
 
 
