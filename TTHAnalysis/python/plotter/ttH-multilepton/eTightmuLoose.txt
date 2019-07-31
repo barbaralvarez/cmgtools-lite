@@ -1,28 +1,19 @@
 alwaystrue: 1
 
-##single muon trigger
-#trigger: Trigger_1m || Trigger_1e
+##single electron trigger
 trigger: Trigger_1e
 cleanup: minMllAFAS > 12
-##
-###two fakeable objects, needs to be replaced by loose objects
-#dilep: nLepFO>=2
+##two loose leptons
 diloose: nLepGood>=2
-###exclusive: nLepFO_isTight <= 2
-pt2510: LepGood1_conePt>25 && LepGood2_conePt>10
-##
-###two opposite sign
-#opp-sign: LepGood1_charge*LepGood2_charge < 0
-##
-tauveto: nTauTight==0
-###e-mu channel
-emu: abs(LepGood1_pdgId) != abs(LepGood2_pdgId)
-##
-###electron tight
-eletight: (abs(LepGood1_pdgId)==11 && LepGood1_isLepTight) || (abs(LepGood2_pdgId)==11 && LepGood2_isLepTight)
-##
-###at least 2 jets and one b-tagged
+##pt cuts
+pt2510: LepGood_conePt[0]>25 && LepGood_conePt[1]>10
+##e-mu channel
+emu: abs(LepGood_pdgId[0]) != abs(LepGood_pdgId[1])
+##electron tight
+eletight: ((abs(LepGood_pdgId[0])==11 && LepGood_isLepTight_Recl[0]) || (abs(LepGood_pdgId[1])==11 && LepGood_isLepTight_Recl[1]))
+##at least 2 jets and one b-tagged
 2j: nJet25>=2
 1B: nBJetMedium25 >= 1 
 ##
+#tauveto: nTauTight==0
 
