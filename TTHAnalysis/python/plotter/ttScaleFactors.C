@@ -109,7 +109,7 @@ void ttScaleFactors(TString year="2017", TString loose="eTmuL", TString tight="e
   Double_t err_SF = SF*((err_eff_data_corr/eff_data_corr)+(err_eff_tt/eff_tt));
   
   //output, checks
-  
+  /*
   cout << "ttbar den = " << den_tt  << " +/- " << err_den_tt << ", num  "  << num_tt  << " +/- " << err_num_tt<< endl;
   cout << "fakes den = " << den_fakes_tt  << " +/- " << err_den_fakes_tt << ", num  "  << num_fakes_tt  << " +/- " << err_num_fakes_tt<< endl;
   cout << "fakes den = " << den_fakes_tt_SS  << " +/- " << err_den_fakes_tt_SS << ", num  "  << num_fakes_tt_SS  << " +/- " << err_num_fakes_tt_SS<< endl;
@@ -117,7 +117,7 @@ void ttScaleFactors(TString year="2017", TString loose="eTmuL", TString tight="e
   cout << "data den = " << den_data  << " +/- " << err_den_data << ", num  "  << num_data  << " +/- " << err_num_data<< endl;
   cout << "data SS den = " << den_data_SS  << " +/- " << err_den_data_SS << ", num  "  << num_data_SS  << " +/- " << err_num_data_SS<< endl;
   cout << "data corrected den = " << den_data_corr  << " +/- " << err_den_data_corr << ", num  "  << num_data_corr  << " +/- " << err_num_data_corr<< endl;
-  
+  */
      
   //print out
   GetBin(dataname, fileLoose, nbin, year, loose);
@@ -146,6 +146,7 @@ void GetBin(TString sample, TFile* file, Int_t nbin, TString year, TString loose
   Double_t binUp     =  h->GetXaxis()->GetBinUpEdge(nbin);
   cout << ">>> Binning down = " <<  binDown << ", center " << binCenter << ", up " << binUp << endl;
 
+  /*
   //compare with loose to tight SFs
   TFile *file2D;
   if(loose.Contains("mu")) 
@@ -177,5 +178,5 @@ void GetBin(TString sample, TFile* file, Int_t nbin, TString year, TString loose
     }//loop j
     
   }
-
+  */
 }
