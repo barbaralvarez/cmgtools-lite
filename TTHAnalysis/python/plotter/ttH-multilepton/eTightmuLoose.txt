@@ -11,6 +11,7 @@ pt2510: LepGood_conePt[0]>25 && LepGood_conePt[1]>10
 emu: abs(LepGood_pdgId[0]) != abs(LepGood_pdgId[1])
 ##electron tight
 eletight: ((abs(LepGood_pdgId[0])==11 && LepGood_isLepTight_Recl[0]) || (abs(LepGood_pdgId[1])==11 && LepGood_isLepTight_Recl[1]))
+eleID: (abs(LepGood_pdgId[0])!=11 || (LepGood_convVeto[0] && LepGood_lostHits[0]==0 && LepGood_tightCharge[0]>=2)) && (abs(LepGood_pdgId[1])!=11 || (LepGood_convVeto[1] && LepGood_lostHits[1]==0 && LepGood_tightCharge[1]>=2))
 ##at least 2 jets and one b-tagged
 2j: nJet25>=2
 1B: nBJetMedium25 >= 1 
