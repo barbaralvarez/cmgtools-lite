@@ -1,0 +1,66 @@
+
+Will merge into DYJetsToLL_M50_Friend.root:
+DYJetsToLL_M50_Friend.chunk0.root
+DYJetsToLL_M50_Friend.chunk1.root
+DYJetsToLL_M50_Friend.chunk2.root
+DYJetsToLL_M50_Friend.chunk3.root
+hadd Target file: DYJetsToLL_M50_Friend.root
+hadd compression setting for all ouput: 3
+hadd Source file 1: DYJetsToLL_M50_Friend.chunk0.root
+hadd Source file 2: DYJetsToLL_M50_Friend.chunk1.root
+hadd Source file 3: DYJetsToLL_M50_Friend.chunk2.root
+hadd Source file 4: DYJetsToLL_M50_Friend.chunk3.root
+hadd Target path: DYJetsToLL_M50_Friend.root:/
+
+Will merge into TTGJets_Friend.root:
+TTGJets_Friend.chunk0.root
+TTGJets_Friend.chunk1.root
+TTGJets_Friend.chunk2.root
+hadd Target file: TTGJets_Friend.root
+hadd compression setting for all ouput: 3
+hadd Source file 1: TTGJets_Friend.chunk0.root
+hadd Source file 2: TTGJets_Friend.chunk1.root
+hadd Source file 3: TTGJets_Friend.chunk2.root
+hadd Target path: TTGJets_Friend.root:/
+
+Will merge into TTHnobb_pow_Friend.root:
+TTHnobb_pow_Friend.chunk0.root
+TTHnobb_pow_Friend.chunk1.root
+hadd Target file: TTHnobb_pow_Friend.root
+hadd compression setting for all ouput: 3
+hadd Source file 1: TTHnobb_pow_Friend.chunk0.root
+hadd Source file 2: TTHnobb_pow_Friend.chunk1.root
+hadd Target path: TTHnobb_pow_Friend.root:/
+
+Will merge into TTJets_DiLepton_Friend.root:
+TTJets_DiLepton_Friend.chunk0.root
+TTJets_DiLepton_Friend.chunk1.root
+TTJets_DiLepton_Friend.chunk2.root
+TTJets_DiLepton_Friend.chunk3.root
+TTJets_DiLepton_Friend.chunk4.root
+TTJets_DiLepton_Friend.chunk5.root
+TTJets_DiLepton_Friend.chunk6.root
+TTJets_DiLepton_Friend.chunk7.root
+TTJets_DiLepton_Friend.chunk8.root
+TTJets_DiLepton_Friend.chunk9.root
+TTJets_DiLepton_Friend.chunk10.root
+TTJets_DiLepton_Friend.chunk11.root
+TTJets_DiLepton_Friend.chunk12.root
+hadd Target file: TTJets_DiLepton_Friend.root
+hadd compression setting for all ouput: 3
+hadd Source file 1: TTJets_DiLepton_Friend.chunk0.root
+hadd Source file 2: TTJets_DiLepton_Friend.chunk1.root
+hadd Source file 3: TTJets_DiLepton_Friend.chunk2.root
+hadd Source file 4: TTJets_DiLepton_Friend.chunk3.root
+hadd Source file 5: TTJets_DiLepton_Friend.chunk4.root
+hadd Source file 6: TTJets_DiLepton_Friend.chunk5.root
+hadd Source file 7: TTJets_DiLepton_Friend.chunk6.root
+hadd Source file 8: TTJets_DiLepton_Friend.chunk7.root
+hadd Source file 9: TTJets_DiLepton_Friend.chunk8.root
+hadd Source file 10: TTJets_DiLepton_Friend.chunk9.root
+hadd Source file 11: TTJets_DiLepton_Friend.chunk10.root
+hadd Source file 12: TTJets_DiLepton_Friend.chunk11.root
+hadd Source file 13: TTJets_DiLepton_Friend.chunk12.root
+hadd Target path: TTJets_DiLepton_Friend.root:/
+/nfs/fanae/user/sscruz/susyMaintenanceScripts/friendsWithBenefits
+/nfs/fanae/user/sscruz/susyMaintenanceScripts/friendsWithBenefits/friendChunkAdd.sh Friend

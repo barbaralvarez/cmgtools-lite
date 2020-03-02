@@ -1,0 +1,160 @@
+
+Will merge into TTHnobb_pow_Friend.root:
+TTHnobb_pow_Friend.chunk0.root
+TTHnobb_pow_Friend.chunk1.root
+TTHnobb_pow_Friend.chunk2.root
+hadd Target file: TTHnobb_pow_Friend.root
+hadd compression setting for all ouput: 3
+hadd Source file 1: TTHnobb_pow_Friend.chunk0.root
+
+Will merge into TTJets_DiLepton_Friend.root:
+TTJets_DiLepton_Friend.chunk0.root
+TTJets_DiLepton_Friend.chunk1.root
+TTJets_DiLepton_Friend.chunk2.root
+TTJets_DiLepton_Friend.chunk3.root
+TTJets_DiLepton_Friend.chunk4.root
+TTJets_DiLepton_Friend.chunk5.root
+TTJets_DiLepton_Friend.chunk6.root
+TTJets_DiLepton_Friend.chunk7.root
+TTJets_DiLepton_Friend.chunk8.root
+TTJets_DiLepton_Friend.chunk9.root
+TTJets_DiLepton_Friend.chunk10.root
+TTJets_DiLepton_Friend.chunk11.root
+TTJets_DiLepton_Friend.chunk12.root
+TTJets_DiLepton_Friend.chunk13.root
+TTJets_DiLepton_Friend.chunk14.root
+TTJets_DiLepton_Friend.chunk15.root
+TTJets_DiLepton_Friend.chunk16.root
+TTJets_DiLepton_Friend.chunk17.root
+TTJets_DiLepton_Friend.chunk18.root
+TTJets_DiLepton_Friend.chunk19.root
+TTJets_DiLepton_Friend.chunk20.root
+TTJets_DiLepton_Friend.chunk21.root
+hadd Target file: TTJets_DiLepton_Friend.root
+hadd compression setting for all ouput: 3
+hadd Source file 1: TTJets_DiLepton_Friend.chunk0.root
+
+Will merge into TTJets_SingleLeptonFromT_Friend.root:
+TTJets_SingleLeptonFromT_Friend.chunk0.root
+TTJets_SingleLeptonFromT_Friend.chunk1.root
+TTJets_SingleLeptonFromT_Friend.chunk2.root
+TTJets_SingleLeptonFromT_Friend.chunk3.root
+hadd Target file: TTJets_SingleLeptonFromT_Friend.root
+hadd compression setting for all ouput: 3
+hadd Source file 1: TTJets_SingleLeptonFromT_Friend.chunk0.root
+hadd Source file 2: TTJets_SingleLeptonFromT_Friend.chunk1.root
+hadd Source file 3: TTJets_SingleLeptonFromT_Friend.chunk2.root
+hadd Source file 4: TTJets_SingleLeptonFromT_Friend.chunk3.root
+hadd Target path: TTJets_SingleLeptonFromT_Friend.root:/
+
+Will merge into TTJets_SingleLeptonFromTbar_Friend.root:
+TTJets_SingleLeptonFromTbar_Friend.chunk0.root
+TTJets_SingleLeptonFromTbar_Friend.chunk1.root
+TTJets_SingleLeptonFromTbar_Friend.chunk2.root
+TTJets_SingleLeptonFromTbar_Friend.chunk3.root
+hadd Target file: TTJets_SingleLeptonFromTbar_Friend.root
+hadd compression setting for all ouput: 3
+hadd Source file 1: TTJets_SingleLeptonFromTbar_Friend.chunk0.root
+hadd Source file 2: TTJets_SingleLeptonFromTbar_Friend.chunk1.root
+hadd Source file 3: TTJets_SingleLeptonFromTbar_Friend.chunk2.root
+hadd Source file 4: TTJets_SingleLeptonFromTbar_Friend.chunk3.root
+hadd Target path: TTJets_SingleLeptonFromTbar_Friend.root:/
+
+Will merge into TTWToLNu_fxfx_Friend.root:
+TTWToLNu_fxfx_Friend.chunk0.root
+TTWToLNu_fxfx_Friend.chunk1.root
+TTWToLNu_fxfx_Friend.chunk2.root
+hadd Target file: TTWToLNu_fxfx_Friend.root
+hadd compression setting for all ouput: 3
+hadd Source file 1: TTWToLNu_fxfx_Friend.chunk0.root
+hadd Source file 2: TTWToLNu_fxfx_Friend.chunk1.root
+hadd Source file 3: TTWToLNu_fxfx_Friend.chunk2.root
+hadd Target path: TTWToLNu_fxfx_Friend.root:/
+
+Will merge into TTW_LO_Friend.root:
+TTW_LO_Friend.chunk0.root
+TTW_LO_Friend.chunk1.root
+TTW_LO_Friend.chunk2.root
+TTW_LO_Friend.chunk3.root
+hadd Target file: TTW_LO_Friend.root
+hadd compression setting for all ouput: 3
+hadd Source file 1: TTW_LO_Friend.chunk0.root
+hadd Source file 2: TTW_LO_Friend.chunk1.root
+hadd Source file 3: TTW_LO_Friend.chunk2.root
+hadd Source file 4: TTW_LO_Friend.chunk3.root
+hadd Target path: TTW_LO_Friend.root:/
+
+Will merge into TTZToLLNuNu_amc_Friend.root:
+TTZToLLNuNu_amc_Friend.chunk0.root
+TTZToLLNuNu_amc_Friend.chunk1.root
+TTZToLLNuNu_amc_Friend.chunk2.root
+TTZToLLNuNu_amc_Friend.chunk3.root
+TTZToLLNuNu_amc_Friend.chunk4.root
+TTZToLLNuNu_amc_Friend.chunk5.root
+TTZToLLNuNu_amc_Friend.chunk6.root
+TTZToLLNuNu_amc_Friend.chunk7.root
+hadd Target file: TTZToLLNuNu_amc_Friend.root
+hadd compression setting for all ouput: 3
+hadd Source file 1: TTZToLLNuNu_amc_Friend.chunk0.root
+
+Will merge into TTZ_LO_Friend.root:
+TTZ_LO_Friend.chunk0.root
+TTZ_LO_Friend.chunk1.root
+TTZ_LO_Friend.chunk2.root
+TTZ_LO_Friend.chunk3.root
+TTZ_LO_Friend.chunk4.root
+TTZ_LO_Friend.chunk5.root
+hadd Target file: TTZ_LO_Friend.root
+hadd compression setting for all ouput: 3
+hadd Source file 1: TTZ_LO_Friend.chunk0.root
+hadd Source file 2: TTZ_LO_Friend.chunk1.root
+hadd Source file 3: TTZ_LO_Friend.chunk2.root
+hadd Source file 4: TTZ_LO_Friend.chunk3.root
+hadd Source file 5: TTZ_LO_Friend.chunk4.root
+hadd Source file 6: TTZ_LO_Friend.chunk5.root
+hadd Target path: TTZ_LO_Friend.root:/
+
+Will merge into TZQToLL_Friend.root:
+TZQToLL_Friend.chunk0.root
+TZQToLL_Friend.chunk1.root
+hadd Target file: TZQToLL_Friend.root
+hadd compression setting for all ouput: 3
+hadd Source file 1: TZQToLL_Friend.chunk0.root
+hadd Source file 2: TZQToLL_Friend.chunk1.root
+hadd Target path: TZQToLL_Friend.root:/
+
+Will merge into WWTo2L2Nu_Friend.root:
+WWTo2L2Nu_Friend.chunk0.root
+WWTo2L2Nu_Friend.chunk1.root
+WWTo2L2Nu_Friend.chunk2.root
+hadd Target file: WWTo2L2Nu_Friend.root
+hadd compression setting for all ouput: 3
+hadd Source file 1: WWTo2L2Nu_Friend.chunk0.root
+hadd Source file 2: WWTo2L2Nu_Friend.chunk1.root
+hadd Source file 3: WWTo2L2Nu_Friend.chunk2.root
+hadd Target path: WWTo2L2Nu_Friend.root:/
+
+Will merge into WZTo3LNu_fxfx_Friend.root:
+WZTo3LNu_fxfx_Friend.chunk0.root
+WZTo3LNu_fxfx_Friend.chunk1.root
+WZTo3LNu_fxfx_Friend.chunk2.root
+WZTo3LNu_fxfx_Friend.chunk3.root
+WZTo3LNu_fxfx_Friend.chunk4.root
+WZTo3LNu_fxfx_Friend.chunk5.root
+WZTo3LNu_fxfx_Friend.chunk6.root
+WZTo3LNu_fxfx_Friend.chunk7.root
+WZTo3LNu_fxfx_Friend.chunk8.root
+hadd Target file: WZTo3LNu_fxfx_Friend.root
+hadd compression setting for all ouput: 3
+hadd Source file 1: WZTo3LNu_fxfx_Friend.chunk0.root
+hadd Source file 2: WZTo3LNu_fxfx_Friend.chunk1.root
+hadd Source file 3: WZTo3LNu_fxfx_Friend.chunk2.root
+hadd Source file 4: WZTo3LNu_fxfx_Friend.chunk3.root
+hadd Source file 5: WZTo3LNu_fxfx_Friend.chunk4.root
+hadd Source file 6: WZTo3LNu_fxfx_Friend.chunk5.root
+hadd Source file 7: WZTo3LNu_fxfx_Friend.chunk6.root
+hadd Source file 8: WZTo3LNu_fxfx_Friend.chunk7.root
+hadd Source file 9: WZTo3LNu_fxfx_Friend.chunk8.root
+hadd Target path: WZTo3LNu_fxfx_Friend.root:/
+/nfs/fanae/user/sscruz/susyMaintenanceScripts/friendsWithBenefits
+/nfs/fanae/user/sscruz/susyMaintenanceScripts/friendsWithBenefits/friendChunkAdd.sh Friend

@@ -1,0 +1,11 @@
+
+Will merge into DYJetsToLL_M50_Friend.root:
+DYJetsToLL_M50_Friend.chunk0.root
+DYJetsToLL_M50_Friend.chunk1.root
+hadd Target file: DYJetsToLL_M50_Friend.root
+hadd compression setting for all ouput: 3
+hadd Source file 1: DYJetsToLL_M50_Friend.chunk0.root
+hadd Source file 2: DYJetsToLL_M50_Friend.chunk1.root
+hadd Target path: DYJetsToLL_M50_Friend.root:/
+/nfs/fanae/user/sscruz/susyMaintenanceScripts/friendsWithBenefits
+/nfs/fanae/user/sscruz/susyMaintenanceScripts/friendsWithBenefits/friendChunkAdd.sh Friend
