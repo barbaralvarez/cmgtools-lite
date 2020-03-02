@@ -11,6 +11,7 @@ pt2510: LepGood_conePt[0]>25 && LepGood_conePt[1]>10
 emu: abs(LepGood_pdgId[0]) != abs(LepGood_pdgId[1])
 ##muon tight
 mutight: ((abs(LepGood_pdgId[0])==13 && LepGood_isLepTight_Recl[0]) || (abs(LepGood_pdgId[1])==13 && LepGood_isLepTight_Recl[1]))
+muTightCharge: (abs(LepGood_pdgId[0])!=13 || LepGood_tightCharge[0]>=1) && (abs(LepGood_pdgId[1])!=13 || LepGood_tightCharge[1]>=1)
 ##at least 2 jets and one b-tagged
 2j: nJet25>=2
 1B: nBJetMedium25 >= 1 
