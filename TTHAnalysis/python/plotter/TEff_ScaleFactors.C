@@ -1,4 +1,5 @@
 #include "TLegend.h"
+#include "TLine.h"
 #include "TCanvas.h"
 #include "TStyle.h"
 #include "TH1D.h"
@@ -25,8 +26,10 @@ TH1D *histo(TString sample, TFile *file);
 void TEff_ScaleFactors(TString year="2017", TString loose="muTeL", TString tight="muTeT", TString var= "ele_pt"){
 
   //Files loose selection and tight selection from ttH framework
-  TFile *fileLoose = new TFile(loose+"_data/"+year+"/"+loose+"_data/testplots.root");
-  TFile *fileTight = new TFile(tight+"_data/"+year+"/"+tight+"_data/testplots.root");
+  //TFile *fileLoose = new TFile(loose+"_data/"+year+"/"+loose+"_data/testplots.root");
+  //TFile *fileTight = new TFile(tight+"_data/"+year+"/"+tight+"_data/testplots.root");
+  TFile *fileLoose = new TFile("SF"+loose+"_data/"+year+"/SF"+loose+"_data/testplots.root");
+  TFile *fileTight = new TFile("SF"+tight+"_data/"+year+"/SF"+tight+"_data/testplots.root");
   //DY Scale factors
   TFile *file;
   if(tight=="eTmuT")     file = new TFile("../../data/leptonSF/looseToTight_"+year+"_m_2lss.root");
@@ -136,6 +139,7 @@ void TEff_ScaleFactors(TString year="2017", TString loose="muTeL", TString tight
   //draw checks
   //num_fakes_tt_SF->Draw();
   //den_data_SS->Draw("same");
+  cout << "**** data efficiencies *****" << endl;
   TEfficiency* eff_data = 0;
   if(TEfficiency::CheckConsistency(*num_data_corr, *den_data_corr)){
   eff_data = new TEfficiency(*num_data_corr,*den_data_corr);
@@ -144,26 +148,52 @@ void TEff_ScaleFactors(TString year="2017", TString loose="muTeL", TString tight
     eff_data->SetStatisticOption(TEfficiency::kFNormal);
     eff_data->SetLineColor(2);
     eff_data->SetLineWidth(2);
-  //eff_data->Draw();
+    eff_data->Draw();
   }
 
   //ttbar 
   TH1D *den_tt = histo(ttname, fileLoose);           
   TH1D *num_tt = histo(ttname, fileTight);           
+  cout << "**** ttbar MC efficiencies *****" << endl;
   TEfficiency* eff_tt = 0;
   if(TEfficiency::CheckConsistency(*num_tt, *den_tt)){
     eff_tt = new TEfficiency(*num_tt,*den_tt);
     eff_tt->SetStatisticOption(TEfficiency::kFNormal);
     eff_tt->SetLineWidth(2);
-    //eff_tt->Draw("same");
+    eff_tt->Draw("same");
     //eff_tt->Draw();
   }
   //pT array
-  Double_t array[11] = {0,15,30,45,60,75,90,105,120,135,150};
-  TH1D* histo_eff_data = new TH1D("histo_eff_data","histo_eff_data", 10, array);
-  TH1D* histo_eff_tt   = new TH1D("histo_eff_tt","histo_eff_tt", 10, array);
+  Double_t ptarray[11]  = {0,15,30,45,60,75,90,105,120,135,150};
+  //Double_t etaarray[11] = {-2.5,-2.0,-1.5,-1.0,-0.5,0.0,0.5,1.0,1.5,2.0,2.5};
+  Double_t etaarray[6] = {0.0,0.5,1.0,1.5,2.0,2.5};
+  //Double_t etaarray[11] = {0.0,0.25,0.5,0.75,1.0,1.25,1.5,1.75,2.0,2.25,2.5};
+  //Double_t etaarray[11] = {0,1,2,3,4,5,6,7,8,9,10}; //x===eta
+  Int_t nbinTot;
+  if(var=="muon_pt" || var=="ele_pt"){
+    nbinTot = 11;
+  }else if(var=="muon_eta" || var=="ele_eta"){
+    nbinTot = 6;
+  }
+
+  Double_t array[nbinTot];
+
+  if(var=="muon_pt" || var=="ele_pt"){
+    for(Int_t nbin = 0; nbin<nbinTot;nbin++){
+      array[nbin] = ptarray[nbin];
+    }
+  }
+  else if(var=="muon_eta" || var=="ele_eta"){
+    for(Int_t nbin = 0; nbin<nbinTot;nbin++){
+      array[nbin] = etaarray[nbin];
+    }
+  }
+  //TH1D* histo_eff_data = new TH1D("histo_eff_data","histo_eff_data", 10, array);
+  //TH1D* histo_eff_tt   = new TH1D("histo_eff_tt","histo_eff_tt", 10, array);
+  TH1D* histo_eff_data = new TH1D("histo_eff_data","histo_eff_data", nbinTot-1, array);
+  TH1D* histo_eff_tt   = new TH1D("histo_eff_tt","histo_eff_tt", nbinTot-1, array);
   //bin by bin SF
-  for(Int_t nbin = 1; nbin<11;nbin++){
+  for(Int_t nbin = 0; nbin<nbinTot;nbin++){
     //for(Int_t nbin = 0; nbin<11;nbin++){
     double ratio = eff_data->GetEfficiency(nbin)/eff_tt->GetEfficiency(nbin);
     cout << "********Bin " << nbin << "  ********* " << endl;
@@ -183,9 +213,11 @@ void TEff_ScaleFactors(TString year="2017", TString loose="muTeL", TString tight
     histo_eff_data->SetBinError(nbin,eff_data->GetEfficiencyErrorLow(nbin));
     histo_eff_tt->SetBinContent(nbin,eff_tt->GetEfficiency(nbin));
     histo_eff_tt->SetBinError(nbin,eff_tt->GetEfficiencyErrorLow(nbin));
-
+    //check binning //
+    cout << "array " << array[nbin] << ", eff data " << eff_data->GetEfficiency(nbin) << ", eff tt " << eff_tt->GetEfficiency(nbin) << endl;
 
   }
+
   //Draw eff, and SF
   TCanvas* c = new TCanvas("c", "c", 1000, 800); 
   TH1D* ScaleFactors = (TH1D*) histo_eff_data->Clone();
@@ -194,16 +226,76 @@ void TEff_ScaleFactors(TString year="2017", TString loose="muTeL", TString tight
   ScaleFactors->SetMaximum(1.3);
   ScaleFactors->SetMinimum(0.0);
   ScaleFactors->SetLineWidth(2);
-  if(var=="muon_pt") ScaleFactors->GetXaxis()->SetTitle("Muon p_{T} [GeV]");
-  else ScaleFactors->GetXaxis()->SetTitle("Electron p_{T} [GeV]");
+  if(var=="muon_pt")       ScaleFactors->GetXaxis()->SetTitle("Muon p_{T} [GeV]");
+  else if(var=="ele_pt")   ScaleFactors->GetXaxis()->SetTitle("Electron p_{T} [GeV]");
+  else if(var=="muon_eta") ScaleFactors->GetXaxis()->SetTitle("Muon |#eta|");
+  else if(var=="ele_eta")  ScaleFactors->GetXaxis()->SetTitle("Electron |#eta|");
+
   ScaleFactors->SetTitle("ttbar/data efficiencies and SFs: "+year);
   ScaleFactors->SetMarkerColor(4);
   ScaleFactors->SetLineColor(4);
   ScaleFactors->SetMarkerStyle(22);
   ScaleFactors->Draw("*");
+  //if(var=="muon_pt" || var=="ele_pt") {
   eff_tt->Draw("same");
   eff_data->Draw("same");
-  TLegend* leg = new TLegend(0.6,0.2,0.8,0.4);
+    //}
+  double xmin; 
+  double xmax;
+  if(var=="muon_pt" || var=="ele_pt") {
+    xmin = 0;
+    xmax = 150;
+  }else{
+    xmin = 0;
+    xmax = 2.5;
+  }
+
+  TLine *line = new TLine(xmin,1,xmax,1);
+  line->SetLineWidth(2);
+  line->SetLineStyle(2);
+  line->Draw("same");
+  //3%
+  TLine *lineplus3 = new TLine(xmin,1.03,xmax,1.03);
+  lineplus3->SetLineColor(38);
+  lineplus3->SetLineWidth(2);
+  lineplus3->SetLineStyle(2);
+  lineplus3->Draw("same");
+  TLine *lineminus3 = new TLine(xmin,0.97,xmax,0.97);
+  lineminus3->SetLineColor(38);
+  lineminus3->SetLineWidth(2);
+  lineminus3->SetLineStyle(2);
+  lineminus3->Draw("same");
+  //2%
+  TLine *lineplus2 = new TLine(xmin,1.02,xmax,1.02);
+  lineplus2->SetLineColor(28);
+  lineplus2->SetLineWidth(2);
+  lineplus2->SetLineStyle(2);
+  lineplus2->Draw("same");
+  TLine *lineminus2 = new TLine(xmin,0.98,xmax,0.98);
+  lineminus2->SetLineColor(28);
+  lineminus2->SetLineWidth(2);
+  lineminus2->SetLineStyle(2);
+  lineminus2->Draw("same");
+  //1%
+  TLine *lineplus1 = new TLine(xmin,1.01,xmax,1.01);
+  lineplus1->SetLineColor(6);
+  lineplus1->SetLineWidth(2);
+  lineplus1->SetLineStyle(2);
+  lineplus1->Draw("same");
+  TLine *lineminus1 = new TLine(xmin,0.99,xmax,0.99);
+  lineminus1->SetLineColor(6);
+  lineminus1->SetLineWidth(2);
+  lineminus1->SetLineStyle(2);
+  lineminus1->Draw("same");
+
+  TLegend* legline = new TLegend(0.6,0.78,0.8,0.88);
+  legline->AddEntry(lineplus1,"1% band", "l");
+  legline->AddEntry(lineplus2,"2% band", "l");
+  legline->AddEntry(lineplus3,"3% band", "l");
+  legline->Draw("same");
+
+
+  TLegend* leg = new TLegend(0.23,0.14,0.4,0.34);
   leg->AddEntry(ScaleFactors,"Scale Factors", "l");
   leg->AddEntry(eff_data,"data eff","l");
   leg->AddEntry(eff_tt,"tt MC eff","l");
@@ -211,7 +303,33 @@ void TEff_ScaleFactors(TString year="2017", TString loose="muTeL", TString tight
   c->SaveAs("plots/ttSF_"+year+"_"+var+".eps");
   c->SaveAs("plots/ttSF_"+year+"_"+var+".png");
   c->SaveAs("plots/ttSF_"+year+"_"+var+".C");
+  
+  //zoom SF
+  TCanvas* czoom = new TCanvas("czoom", "czoom", 1000, 800);
+  TH1D* SFzoom = (TH1D*) ScaleFactors->Clone();
+  SFzoom->SetMaximum(1.1);
+  SFzoom->SetMinimum(0.9);
+  SFzoom->Draw();
+  line->Draw("same");
+  lineplus3->Draw("same");
+  lineminus3->Draw("same");
+  lineplus2->Draw("same");
+  lineminus2->Draw("same");
+  lineplus1->Draw("same");
+  lineminus1->Draw("same");
+  legline->Draw("same");
+  czoom->SaveAs("plots/ttSFzoom_"+year+"_"+var+".eps");
+  czoom->SaveAs("plots/ttSFzoom_"+year+"_"+var+".png");
+  czoom->SaveAs("plots/ttSFzoom_"+year+"_"+var+".C");
+  
+  //save in a rootfile
+  TFile *f = new TFile("rootfiles/SFttbar_"+year+"_"+var+".root","RECREATE");
+  ScaleFactors->Draw();
+  ScaleFactors->Write();
+  f->Close();
+  
 
+  /*
   TCanvas* cSF = new TCanvas("cSF", "cSF", 1000, 800); 
 
   //open file
@@ -264,7 +382,7 @@ void TEff_ScaleFactors(TString year="2017", TString loose="muTeL", TString tight
   cSF->SaveAs("plots/ScaleFactors_"+year+"_"+var+".eps");
   cSF->SaveAs("plots/ScaleFactors_"+year+"_"+var+".png");
   cSF->SaveAs("plots/ScaleFactors_"+year+"_"+var+".C");
-
+  */
 }//the end
 
 
