@@ -21,6 +21,7 @@ class lepScaleFactors(Module):
                 self.looseToTight['2017,%s,%s'%(fl,chan)] = self.loadHisto(os.environ['CMSSW_BASE'] + '/src/CMGTools/TTHAnalysis/data/leptonSF/looseToTight_2017_%s_%s.root'%(fl,chan), "EGamma_SF2D")
                 self.looseToTight['2018,%s,%s'%(fl,chan)] = self.loadHisto(os.environ['CMSSW_BASE'] + '/src/CMGTools/TTHAnalysis/data/leptonSF/looseToTight_2018_%s_%s.root'%(fl,chan), "EGamma_SF2D")
 
+
                 # FIXME hardcoded to 2017
                 #self.looseToTight['2016,%s,%s'%(fl,chan)] = self.loadHisto(os.environ['CMSSW_BASE'] + '/src/CMGTools/TTHAnalysis/data/leptonSF/lepMVAEffSF_%s_%s.root'%(fl,chan), 'sf')
                 #self.looseToTight['2017,%s,%s'%(fl,chan)] = self.loadHisto(os.environ['CMSSW_BASE'] + '/src/CMGTools/TTHAnalysis/data/leptonSF/lepMVAEffSF_%s_%s.root'%(fl,chan), 'sf')
@@ -43,11 +44,15 @@ class lepScaleFactors(Module):
             self.out.branch('leptonSF_2lss%s'%var,'F')
             self.out.branch('leptonSF_3l%s'%var,'F')
             self.out.branch('leptonSF_4l%s'%var,'F')
+            self.out.branch('leptonSF_2lss_loosetotight0%s'%var,'F')
+            self.out.branch('leptonSF_2lss_loosetotight1%s'%var,'F')
         #loose to tight
         for var in '_el_loosetotight_up,_el_loosetotight_dn,_mu_loosetotight_up,_mu_loosetotight_dn'.split(','):
             self.out.branch('leptonSF_2lss%s'%var,'F')
             self.out.branch('leptonSF_3l%s'%var,'F')
             self.out.branch('leptonSF_4l%s'%var,'F')
+            self.out.branch('leptonSF_2lss_loosetotight0%s'%var,'F')
+            self.out.branch('leptonSF_2lss_loosetotight1%s'%var,'F')
         for var in ',_up,_dn'.split(','):
             self.out.branch('triggerSF_2lss%s'%var,'F')
             self.out.branch('triggerSF_3l%s'%var,'F')
@@ -147,9 +152,15 @@ class lepScaleFactors(Module):
             leptonSF_2lss = 1
             leptonSF_3l   = 1
             leptonSF_4l   = 1
+            leptonSF_2lss_loosetotight0 = 1
+            leptonSF_2lss_loosetotight1 = 1
             if len(leps) >= 2:
                 leptonSF_2lss = self.getLooseToTight(leps[0],var,year,2) * self.getLooseToTight(leps[1],var,year,2)
                 leptonSF_2lss = leptonSF_2lss * self.getRecoToLoose(leps[0],var,year) * self.getRecoToLoose(leps[1],var,year)
+                leptonSF_2lss_loosetotight0 = self.getLooseToTight(leps[0],var,year,2)
+                leptonSF_2lss_loosetotight1 = self.getLooseToTight(leps[1],var,year,2)
+
+
             if len(leps) >= 3:
                 leptonSF_3l   = self.getLooseToTight(leps[0],var,year,3) * self.getLooseToTight(leps[1],var,year,3) * self.getLooseToTight(leps[2],var,year,3)
                 leptonSF_3l   = leptonSF_3l *  self.getRecoToLoose(leps[0],var,year) * self.getRecoToLoose(leps[1],var,year) * self.getRecoToLoose(leps[2],var,year)
@@ -159,6 +170,8 @@ class lepScaleFactors(Module):
             self.out.fillBranch('leptonSF_2lss%s'%var, leptonSF_2lss)
             self.out.fillBranch('leptonSF_3l%s'%var  , leptonSF_3l)
             self.out.fillBranch('leptonSF_4l%s'%var  , leptonSF_4l)
+            self.out.fillBranch('leptonSF_2lss_loosetotight0%s'%var, leptonSF_2lss_loosetotight0)
+            self.out.fillBranch('leptonSF_2lss_loosetotight1%s'%var, leptonSF_2lss_loosetotight1)
 
         for var in '_el_up,_el_dn,_mu_up,_mu_dn'.split(','):
             leptonSF_2lss = 1
@@ -183,9 +196,13 @@ class lepScaleFactors(Module):
             leptonSF_2lss = 1
             leptonSF_3l   = 1
             leptonSF_4l   = 1
+            leptonSF_2lss_loosetotight0 = 1
+            leptonSF_2lss_loosetotight1 = 1
             if len(leps) >= 2:
                 leptonSF_2lss = self.getLooseToTight(leps[0],var,year,2) * self.getLooseToTight(leps[1],var,year,2)
                 leptonSF_2lss = leptonSF_2lss * self.getRecoToLoose(leps[0],'',year) * self.getRecoToLoose(leps[1],'',year)
+                leptonSF_2lss_loosetotight0 = self.getLooseToTight(leps[0],var,year,2)
+                leptonSF_2lss_loosetotight1 = self.getLooseToTight(leps[1],var,year,2)
             if len(leps) >= 3:
                 leptonSF_3l   = self.getLooseToTight(leps[0],var,year,3) * self.getLooseToTight(leps[1],var,year,3) * self.getLooseToTight(leps[2],var,year,3)
                 leptonSF_3l   = leptonSF_3l *  self.getRecoToLoose(leps[0],'',year) * self.getRecoToLoose(leps[1],'',year) * self.getRecoToLoose(leps[2],'',year)
@@ -197,4 +214,8 @@ class lepScaleFactors(Module):
             self.out.fillBranch('leptonSF_2lss%s'%var, leptonSF_2lss)
             self.out.fillBranch('leptonSF_3l%s'%var  , leptonSF_3l)
             self.out.fillBranch('leptonSF_4l%s'%var  , leptonSF_4l)
+            #closure test
+            self.out.fillBranch('leptonSF_2lss_loosetotight0%s'%var, leptonSF_2lss_loosetotight0)
+            self.out.fillBranch('leptonSF_2lss_loosetotight1%s'%var, leptonSF_2lss_loosetotight1)
+
         return True
